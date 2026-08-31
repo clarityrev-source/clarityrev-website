@@ -1,0 +1,110 @@
+@import "tailwindcss";
+
+@theme {
+  /* ── Ground: warm cream editorial base ───────────────────────── */
+  --color-paper: #f4f1e7;
+  --color-card: #fbf9f2;
+  --color-ink: #16130d;
+  --color-muted: #4a463c;
+  --color-faint: #6f6a5c;
+  --color-line: #16130d;
+
+  /* ── Accents (restrained, high-contrast) ─────────────────────── */
+  --color-purple: #6c5ce7;
+  --color-purple-tint: #efecfd;
+  --color-yellow: #f6c445;
+  --color-yellow-tint: #fdf4d8;
+  --color-green: #46cc5e;
+  --color-green-tint: #e3f7e8;
+
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-archivo), var(--font-inter), ui-sans-serif,
+    system-ui, sans-serif;
+  --font-mono: var(--font-plex-mono), ui-monospace, "SFMono-Regular", monospace;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Anchored sections clear the sticky header (64px) when scrolled to. */
+section[id] {
+  scroll-margin-top: 6rem;
+}
+
+body {
+  background-color: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background-color: var(--color-yellow);
+  color: var(--color-ink);
+}
+
+/* ── Neo-brutalist primitives ────────────────────────────────────
+   Heavy black borders + offset colored shadows. Used across cards,
+   buttons and panels to keep one consistent visual family. */
+.brutal {
+  border: 3px solid var(--color-ink);
+}
+.brutal-2 {
+  border: 2px solid var(--color-ink);
+}
+
+.shadow-brutal {
+  box-shadow: 5px 5px 0 0 var(--color-ink);
+}
+.shadow-brutal-lg {
+  box-shadow: 8px 8px 0 0 var(--color-ink);
+}
+.shadow-brutal-purple {
+  box-shadow: 8px 8px 0 0 var(--color-purple);
+}
+.shadow-brutal-yellow {
+  box-shadow: 8px 8px 0 0 var(--color-yellow);
+}
+.shadow-brutal-green {
+  box-shadow: 8px 8px 0 0 var(--color-green);
+}
+
+/* Interactive press: shift into the shadow on hover/active. */
+.brutal-press {
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+.brutal-press:hover {
+  transform: translate(2px, 2px);
+  box-shadow: 3px 3px 0 0 var(--color-ink);
+}
+.brutal-press:active {
+  transform: translate(5px, 5px);
+  box-shadow: 0 0 0 0 var(--color-ink);
+}
+
+/* ── Surgical motion: one entrance on load, reduced-motion safe ── */
+@keyframes cr-rise {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.cr-rise {
+  opacity: 0;
+  animation: cr-rise 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+@media (prefers-reduced-motion: reduce) {
+  .cr-rise {
+    opacity: 1;
+    animation: none;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+}
